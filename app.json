@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mini-shop",
-    "slug": "mini-shop",
+    "name": "react-native-mini-shop",
+    "slug": "react-native-mini-shop",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
