@@ -14,7 +14,7 @@ const NavBar = props => {
 const styles = StyleSheet.create({
         navBarContainer: {
             width: '100%',
-            position: 'absolute',
+            position: 'fixed',
             bottom: 0,
             left: 0,
             height: 50,

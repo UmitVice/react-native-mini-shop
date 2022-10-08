@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, StyleSheet, FlatList, Text, Image, TouchableOpacity} from "react-native";
 
-const Products = ({ products }) => {
+const Products = ({ products, navigation }) => {
     return (
         <View style={styles.container}>
             <FlatList style={styles.list}
@@ -34,7 +34,7 @@ const Products = ({ products }) => {
                                   <View style={styles.cardFooter}>
                                       <View style={styles.socialBarContainer}>
                                           <View style={styles.socialBarSection}>
-                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => {}}>
+                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => { navigation.navigate('Details')}}>
                                                   <Image style={styles.icon} source={{uri: 'https://img.icons8.com/nolan/96/3498db/add-shopping-cart.png'}}/>
                                                   <Text style={[styles.socialBarLabel, styles.buyNow]}>Add To Cart</Text>
                                               </TouchableOpacity>
@@ -49,7 +49,8 @@ const Products = ({ products }) => {
 };
 
 Products.propTypes = {
-    products: PropTypes.array
+    products: PropTypes.array,
+    navigation: PropTypes.object
 };
 
 const styles = StyleSheet.create({
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     list: {
         paddingHorizontal: 5,
         backgroundColor:"#E6E6E6",
+        paddingBottom: 50
     },
     listContainer:{
         alignItems:'center'
