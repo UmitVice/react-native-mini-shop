@@ -1,43 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
 
 const NavBar = props => {
     // React Native Navbar component
     return (
         <View style={styles.navBarContainer}>
-            <Text>Navbar</Text>
+            <TouchableOpacity style={styles.navBarItem}>
+                <Text style={styles.navBarText}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.navBarItem} onPress={() => {
+                props.navigation.navigate('Cart')
+            }}>
+                <Text style={styles.navBarText}>Cart</Text>
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
         navBarContainer: {
-            width: '100%',
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            height: 50,
-            backgroundColor: '#dcdcdc',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            justifyContent: 'center',
+            width: '100%',
+            height: 50,
+            backgroundColor: '#fff',
+            borderTopWidth: 1,
+            borderTopColor: '#000',
+            position: 'absolute',
+            bottom: 0
         },
         navBar: {
             backgroundColor: '#fff',
-            height: 50,
+            width: '100%',
             alignItems: 'center',
-            justifyContent: 'center',
             shadowColor: '#000',
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.2,
-            elevation: 2,
-            position: 'relative'
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: 50,
         },
+        navBarItem: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        navBarText: {
+            fontSize: 16,
+            color: '#000',
+        }
     }
 )
 
 NavBar.propTypes = {
-
+    navigation: PropTypes.object,
 };
 
 export default NavBar;

@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, FlatList, Text, Image, TouchableOpacity} from "react-native";
+import {View, StyleSheet, FlatList, Text, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
+import {setSelectedProduct} from "../../features/product/productSlice";
+import {useAppDispatch} from "../../hooks";
 
 const Products = ({ products, navigation }) => {
+
+    const dispatch = useAppDispatch();
     return (
         <View style={styles.container}>
             <FlatList style={styles.list}
@@ -25,16 +29,22 @@ const Products = ({ products, navigation }) => {
                           imageUrl = imageUrl?.split('?')[0];
                           return (
                               <View style={styles.card}>
-                                  <View style={styles.cardHeader}>
-                                      <Text numberOfLines={2} ellipsizeMode={'tail'} style={styles.title}>{item.name}</Text>
-                                      <Text style={styles.price}>{item.price}</Text>
-                                  </View>
-                                  <Image style={styles.cardImage} source={{uri: imageUrl}}/>
-
+                                  <TouchableWithoutFeedback onPress={() => {
+                                      dispatch(setSelectedProduct(item));
+                                      navigation.navigate('Details');
+                                  }}>
+                                      <View>
+                                          <View style={styles.cardHeader}>
+                                              <Text numberOfLines={2} ellipsizeMode={'tail'} style={styles.title}>{item.name}</Text>
+                                              <Text style={styles.price}>{item.price}</Text>
+                                          </View>
+                                          <Image style={styles.cardImage} source={{uri: imageUrl}}/>
+                                      </View>
+                                  </TouchableWithoutFeedback>
                                   <View style={styles.cardFooter}>
                                       <View style={styles.socialBarContainer}>
                                           <View style={styles.socialBarSection}>
-                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => { navigation.navigate('Details')}}>
+                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => {}}>
                                                   <Image style={styles.icon} source={{uri: 'https://img.icons8.com/nolan/96/3498db/add-shopping-cart.png'}}/>
                                                   <Text style={[styles.socialBarLabel, styles.buyNow]}>Add To Cart</Text>
                                               </TouchableOpacity>

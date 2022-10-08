@@ -37,14 +37,11 @@ const Home = props => {
         })
     }, [])
 
-    useEffect(() => {
-        console.log(products);
-    }, [products]);
-
 
     return (
         <View style={styles.container}>
             <Products navigation={props.navigation} products={products}/>
+            <NavBar navigation={props.navigation} />
         </View>
     );
 };
