@@ -1,23 +1,22 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import {useAppSelector} from "../../hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {addToCart} from "../../features/product/cartSlice";
 
 const ProductDetail = () => {
     const product = useAppSelector(state => state?.products?.selectedProduct);
 
-    useEffect(() => {
-        console.log('PRODUCTTT', product)
-    }, [product]);
+    const dispatch = useAppDispatch();
 
     return (
         <View style={styles.card}>
             <Text style={styles.productTitle}>{product?.name}</Text>
             <Image style={styles.productImage} source={{ uri: product?.img}} />
             <Text style={styles.productDescription} >{product?.description}</Text>
-            <Text style={styles.productPrice}>{product?.price}</Text>
+            <Text style={styles.productPrice}>${product?.price}</Text>
             <View>
-                <TouchableOpacity style={styles.addToCartButton}>
+                <TouchableOpacity onPress={() => dispatch(addToCart(product)) } style={styles.addToCartButton}>
                     <Text style={styles.addToCartButtonText}>Add to cart</Text>
                 </TouchableOpacity>
             </View>
