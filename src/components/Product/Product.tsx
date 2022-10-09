@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View, StyleSheet, FlatList, Text, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
 import {setSelectedProduct} from "../../features/product/productSlice";
@@ -8,8 +8,28 @@ import {addToCart} from "../../features/product/cartSlice";
 const Products = ({ products, navigation }) => {
 
     const dispatch = useAppDispatch();
+
+    const [notificationVisible, setNotificationVisible] = React.useState(false);
+
+    const displayMiniNotification = () => {
+        return (
+            <View style={styles.notificationWrapper}>
+                <Text style={styles.notificationText}>Added to cart</Text>
+            </View>
+        )
+    }
+
+    useEffect(() => {
+        if (notificationVisible) {
+            setTimeout(() => {
+                setNotificationVisible(false);
+            }, 2000)
+        }
+    }, [notificationVisible]);
+
     return (
         <View style={styles.container}>
+            {notificationVisible && displayMiniNotification()}
             <FlatList style={styles.list}
                       contentContainerStyle={styles.listContainer}
                       data={products}
@@ -45,7 +65,10 @@ const Products = ({ products, navigation }) => {
                                   <View style={styles.cardFooter}>
                                       <View style={styles.socialBarContainer}>
                                           <View style={styles.socialBarSection}>
-                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => { dispatch(addToCart(item))}}>
+                                              <TouchableOpacity style={styles.socialBarButton} onPress={() => {
+                                                  dispatch(addToCart(item))
+                                                  setNotificationVisible(true);
+                                              }}>
                                                   <Image style={styles.icon} source={{uri: 'https://img.icons8.com/nolan/96/3498db/add-shopping-cart.png'}}/>
                                                   <Text style={[styles.socialBarLabel, styles.buyNow]}>Add To Cart</Text>
                                               </TouchableOpacity>
@@ -159,6 +182,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    notificationWrapper: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'green',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+    },
+    notificationText: {
+        color: 'white',
+        fontSize: 20
     }
 });
 
