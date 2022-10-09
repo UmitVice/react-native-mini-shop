@@ -9,6 +9,4 @@ Install and run
 --------------------------
 - npm install
 - npx expo start
-- After start, please for show in android emulator press 'a',
-  for ios emulator press 'i',
-  for show in web browser press 'w'.
+- After start, please for show in android emulator press 'a' or  web browser press 'w'.
